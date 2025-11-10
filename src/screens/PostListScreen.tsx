@@ -9,6 +9,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getPosts, Post, posts } from "../data/postData";
 import { useEffect, useState } from "react";
+import AddPostFloatingButton from "../components/AddPostFloatingButton";
 
 const PostListScreen = () => {
 	const [postList, setPostList] = useState<Post[]>([]);
@@ -61,6 +62,8 @@ const PostListScreen = () => {
 					</View>
 				}
 			/>
+
+			<AddPostFloatingButton />
 		</SafeAreaView>
 	);
 };
