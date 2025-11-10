@@ -29,6 +29,13 @@ const PostListScreen = () => {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (refreshing) {
+			setPostList(posts);
+			setRefreshing(false);
+		}
+	}, [refreshing]);
+
 	const renderItem = ({ item }: { item: Post }) => {
 		return (
 			<Pressable style={styles.postItem}>
@@ -38,12 +45,9 @@ const PostListScreen = () => {
 		);
 	};
 
-	useEffect(() => {
-		if (refreshing) {
-			setPostList(posts);
-			setRefreshing(false);
-		}
-	}, [refreshing]);
+	const handlePressAddPost = () => {
+		Alert.alert("게시물 추가", "게시물 추가 버튼을 눌렀습니다.");
+	};
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -63,7 +67,7 @@ const PostListScreen = () => {
 				}
 			/>
 
-			<AddPostFloatingButton />
+			<AddPostFloatingButton onPress={handlePressAddPost} />
 		</SafeAreaView>
 	);
 };

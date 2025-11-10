@@ -1,12 +1,15 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, PressableProps, StyleSheet, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const AddPostFloatingButton = () => {
+type Props = {} & PressableProps;
+
+const AddPostFloatingButton = ({ ...props }: Props) => {
 	const safeAreaInsets = useSafeAreaInsets();
 
 	return (
 		<Pressable
 			style={[styles.container, { bottom: safeAreaInsets.bottom }]}
+			{...props}
 		>
 			<Text style={styles.text}>+</Text>
 		</Pressable>
