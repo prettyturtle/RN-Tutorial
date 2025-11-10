@@ -10,7 +10,7 @@ type AddPostDto = {
 	content: string;
 };
 
-type Post = {
+export type Post = {
 	id: number;
 	title: string;
 	content: string;
@@ -21,6 +21,30 @@ export let posts: Post[] = [
 	{
 		id: 1,
 		title: "첫 번째 글",
+		content: "안녕하세요! React Native 블로그 시작합니다.",
+		date: new Date(),
+	},
+	{
+		id: 2,
+		title: "두 번째 글",
+		content: "안녕하세요! React Native 블로그 시작합니다.",
+		date: new Date(),
+	},
+	{
+		id: 3,
+		title: "세 번째 글",
+		content: "안녕하세요! React Native 블로그 시작합니다.",
+		date: new Date(),
+	},
+	{
+		id: 4,
+		title: "네 번째 글",
+		content: "안녕하세요! React Native 블로그 시작합니다.",
+		date: new Date(),
+	},
+	{
+		id: 5,
+		title: "다섯 번째 글",
 		content: "안녕하세요! React Native 블로그 시작합니다.",
 		date: new Date(),
 	},
