@@ -6,12 +6,21 @@ import {
 	Text,
 	View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { getPosts, Post, posts } from "../data/postData";
 import { useEffect, useState } from "react";
 import AddPostFloatingButton from "../components/AddPostFloatingButton";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+	PostList: undefined;
+	AddPostModal: undefined;
+};
 
 const PostListScreen = () => {
+	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
 	const [postList, setPostList] = useState<Post[]>([]);
 	const [refreshing, setRefreshing] = useState(false);
 
@@ -46,13 +55,11 @@ const PostListScreen = () => {
 	};
 
 	const handlePressAddPost = () => {
-		Alert.alert("게시물 추가", "게시물 추가 버튼을 눌렀습니다.");
+		navigation.navigate("AddPostModal");
 	};
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<Text style={styles.title}>게시물 목록</Text>
-
 			<FlatList
 				data={postList}
 				renderItem={renderItem}
@@ -60,6 +67,7 @@ const PostListScreen = () => {
 				contentContainerStyle={styles.postListContentContainer}
 				refreshing={refreshing}
 				onRefresh={() => setRefreshing(true)}
+				contentInsetAdjustmentBehavior="automatic"
 				ListEmptyComponent={
 					<View style={styles.emptyContainer}>
 						<Text style={styles.emptyText}>게시물이 없습니다.</Text>
@@ -77,15 +85,16 @@ export default PostListScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: "#fdfdfd",
+	},
+	// title: {
+	// 	fontSize: 24,
+	// 	fontWeight: "bold",
+	// 	color: "#212529",
+	// },
+	postList: {
 		padding: 16,
-		rowGap: 16,
 	},
-	title: {
-		fontSize: 24,
-		fontWeight: "bold",
-		color: "#212529",
-	},
-	postList: {},
 	postListContentContainer: {
 		rowGap: 8,
 		flexGrow: 1,
@@ -96,6 +105,7 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		padding: 16,
 		rowGap: 4,
+		backgroundColor: "#fff",
 	},
 	postItemTitle: {
 		fontSize: 18,

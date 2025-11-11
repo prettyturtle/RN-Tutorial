@@ -36,18 +36,6 @@ export let posts: Post[] = [
 		content: "안녕하세요! React Native 블로그 시작합니다.",
 		date: new Date(),
 	},
-	{
-		id: 4,
-		title: "네 번째 글",
-		content: "안녕하세요! React Native 블로그 시작합니다.",
-		date: new Date(),
-	},
-	{
-		id: 5,
-		title: "다섯 번째 글",
-		content: "안녕하세요! React Native 블로그 시작합니다.",
-		date: new Date(),
-	},
 ];
 
 const generateId = () => {
