@@ -6,7 +6,7 @@ import {
 	Text,
 	View,
 } from "react-native";
-import { getPosts, Post, posts } from "../data/postData";
+import { deletePost, getPosts, Post, posts } from "../data/postData";
 import { useCallback, useEffect, useState } from "react";
 import AddPostFloatingButton from "../components/AddPostFloatingButton";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,6 +17,7 @@ type RootStackParamList = {
 	PostList: undefined;
 	AddPostModal: undefined;
 	PostDetail: { postId: number };
+	ModifyPostModal: { postId: number };
 };
 
 const PostListScreen = () => {
@@ -57,11 +58,46 @@ const PostListScreen = () => {
 		navigation.navigate("PostDetail", { postId });
 	};
 
+	const handleLongPressPost = (postId: number) => {
+		Alert.alert("편집 선택", "", [
+			{
+				text: "편집",
+				onPress: () =>
+					navigation.navigate("ModifyPostModal", { postId }),
+			},
+			{
+				text: "삭제",
+				onPress: () => handleDeletePost(postId),
+			},
+			{
+				text: "취소",
+				style: "cancel",
+			},
+		]);
+	};
+
+	const handleDeletePost = (postId: number) => {
+		Alert.alert("게시물을 삭제하시겠습니까?", "", [
+			{
+				text: "삭제",
+				onPress: () => {
+					deletePost(postId);
+					loadPosts();
+				},
+			},
+			{
+				text: "취소",
+				style: "cancel",
+			},
+		]);
+	};
+
 	const renderItem = ({ item }: { item: Post }) => {
 		return (
 			<Pressable
 				style={styles.postItem}
 				onPress={() => handlePressPost(item.id)}
+				onLongPress={() => handleLongPressPost(item.id)}
 			>
 				<Text style={styles.postItemTitle}>{item.title}</Text>
 				<Text style={styles.postItemContent}>{item.content}</Text>

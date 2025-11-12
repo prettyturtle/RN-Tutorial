@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddPostScreen from "./src/screens/AddPostScreen";
 import PostDetailScreen from "./src/screens/PostDetailScreen";
+import ModifyPostScreen from "./src/screens/ModifyPostScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,17 @@ const App = () => {
 					options={{ title: "게시물 상세" }}
 					name="PostDetail"
 					component={PostDetailScreen}
+				/>
+				<Stack.Screen
+					options={{
+						title: "게시물 수정",
+						headerLargeTitle: true,
+						presentation: "formSheet",
+						sheetGrabberVisible: true,
+						gestureEnabled: false,
+					}}
+					name="ModifyPostModal"
+					component={ModifyPostScreen}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
