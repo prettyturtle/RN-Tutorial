@@ -1,4 +1,4 @@
-import { Text, StyleSheet, Alert, View } from "react-native";
+import { Text, StyleSheet, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { useEffect, useState } from "react";
@@ -31,10 +31,10 @@ const PostDetailScreen = () => {
 	if (!post) return null;
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container} edges={[]}>
 			<Text style={styles.postTitle}>{post.title}</Text>
 			<Text style={styles.postContent}>{post.content}</Text>
-		</View>
+		</SafeAreaView>
 	);
 };
 
