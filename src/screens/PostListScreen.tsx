@@ -7,10 +7,10 @@ import {
 	View,
 } from "react-native";
 import { getPosts, Post, posts } from "../data/postData";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AddPostFloatingButton from "../components/AddPostFloatingButton";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type RootStackParamList = {
@@ -19,17 +19,18 @@ type RootStackParamList = {
 };
 
 const PostListScreen = () => {
-	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+	const navigation =
+		useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
 	const [postList, setPostList] = useState<Post[]>([]);
 	const [refreshing, setRefreshing] = useState(false);
 
-	useEffect(() => {
+	const loadPosts = useCallback(() => {
 		const response = getPosts();
 
 		if (response.result) {
 			if (response.data) {
-				setPostList(response.data);
+				setPostList([...response.data]);
 			} else {
 				setPostList([]);
 			}
@@ -37,6 +38,12 @@ const PostListScreen = () => {
 			Alert.alert(response.message);
 		}
 	}, []);
+
+	useFocusEffect(
+		useCallback(() => {
+			loadPosts();
+		}, [loadPosts]),
+	);
 
 	useEffect(() => {
 		if (refreshing) {
