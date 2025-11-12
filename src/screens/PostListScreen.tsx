@@ -16,6 +16,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 type RootStackParamList = {
 	PostList: undefined;
 	AddPostModal: undefined;
+	PostDetail: { postId: number };
 };
 
 const PostListScreen = () => {
@@ -52,9 +53,16 @@ const PostListScreen = () => {
 		}
 	}, [refreshing]);
 
+	const handlePressPost = (postId: number) => {
+		navigation.navigate("PostDetail", { postId });
+	};
+
 	const renderItem = ({ item }: { item: Post }) => {
 		return (
-			<Pressable style={styles.postItem}>
+			<Pressable
+				style={styles.postItem}
+				onPress={() => handlePressPost(item.id)}
+			>
 				<Text style={styles.postItemTitle}>{item.title}</Text>
 				<Text style={styles.postItemContent}>{item.content}</Text>
 			</Pressable>
